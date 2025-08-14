@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PILKETOS OSSMAKADU 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: Arial, sans-serif; 
+            background: linear-gradient(135deg, #faf8f0 0%, #f5f3e8 50%, #faf8f0 100%);
+            background-attachment: fixed;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 40%, rgba(212, 175, 55, 0.02) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, rgba(218, 165, 32, 0.02) 50%, transparent 60%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .header-logo {
+            margin-bottom: 20px;
+        }
+        
+        .logo-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            gap: 30px;
+        }
+        
+        .nav-btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            background: transparent;
+            color: #666;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #f0f0f0;
+        }
+        
+        .nav-btn.active {
+            background: #d4af37;
+            color: white;
+        }
+        
+        .main {
+            padding: 40px 0;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .section-title {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        
+        .candidates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .candidate-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fefefe 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .candidate-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+        
+        .candidate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .candidate-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .candidate-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .candidate-photo {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .photo-number {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .candidate-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .candidate-class {
+            color: #666;
+            font-size: 1em;
+        }
+        
+        .candidate-info {
+            margin-top: 20px;
+        }
+        
+        .info-box {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .info-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .info-content {
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        .info-content div {
+            margin-bottom: 3px;
+        }
+        
+        .voting-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #ffffff 0%, #fefefe 100%);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .voting-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(218, 165, 32, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+        
+        .radio-group {
+            margin-bottom: 20px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .radio-option:hover {
+            border-color: #d4af37;
+            background: #fffbf0;
+        }
+        
+        .radio-option input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+        
+        .radio-candidate-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            overflow: hidden;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .radio-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .radio-details h4 {
+            margin-bottom: 3px;
+            color: #333;
+        }
+        
+        .radio-details p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .results-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .total-votes {
+            background: linear-gradient(145deg, #ffffff 0%, #fefefe 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .total-votes::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(255, 215, 0, 0.02) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .total-votes h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .total-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #d4af37;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .result-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fefefe 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .result-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .result-name {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            transition: width 1s ease;
+        }
+        
+        .result-stats {
+            font-size: 1.2em;
+        }
+        
+        .vote-count {
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        
+        .vote-percentage {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .winner-announcement {
+            background: linear-gradient(135deg, #ffc107, #ff8c00);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+        }
+        
+        .winner-announcement h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .winner-announcement p {
+            font-size: 1.3em;
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer p {
+            margin-bottom: 5px;
+        }
+        
+        /* Color classes */
+        .blue { background-color: #d4af37; }
+        .purple { background-color: #b8860b; }
+        .orange { background-color: #daa520; }
+        .green { background-color: #cd853f; }
+        .red { background-color: #b8860b; }
+        .indigo { background-color: #d4af37; }
+        .pink { background-color: #daa520; }
+        .yellow { background-color: #ffd700; }
+        
+        .blue-light { background-color: #faf8f0; }
+        .purple-light { background-color: #f5f3e8; }
+        .orange-light { background-color: #fdf9e8; }
+        .green-light { background-color: #f8f5f0; }
+        .red-light { background-color: #f5f3e8; }
+        .indigo-light { background-color: #faf8f0; }
+        .pink-light { background-color: #fdf9e8; }
+        .yellow-light { background-color: #fffef0; }
+        
+        .blue-dark { color: #b8860b; }
+        .purple-dark { color: #8b6914; }
+        .orange-dark { color: #b8860b; }
+        .green-dark { color: #a0522d; }
+        .red-dark { color: #8b6914; }
+        .indigo-dark { color: #b8860b; }
+        .pink-dark { color: #b8860b; }
+        .yellow-dark { color: #daa520; }
+        
+        @media (max-width: 768px) {
+            .candidates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .voting-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-logo">
+                <img src="https://imagizer.imageshack.com/img923/3995/R1s1IJ.png" alt="Logo SMK Darul Ulum" class="logo-img">
+            </div>
+            <h1>🏫 PILKETOS OSSMAKADU 2025</h1>
+            <p>PEMILIHAN KETUA OSIS SMK DARUL ULUM 2025</p>
+            <p>TAHUN PELAJARAN 2025-2026</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showSection('candidates')">👥 Kandidat</button>
+            <button class="nav-btn" onclick="showSection('voting')">🗳️ Voting</button>
+            <button class="nav-btn" onclick="showAdminLogin()">📊 Hasil</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Candidates Section -->
+            <section id="candidates" class="section active">
+                <h2 class="section-title">Kandidat Ketua OSIS</h2>
+
+                <div class="candidates-grid">
+                    <!-- Candidate 1 -->
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <div class="candidate-photo">
+                                <img src="https://imagizer.imageshack.com/img923/9986/13cZX2.jpg" alt="ALFANU RIZKY" class="photo-img">
+                                <div class="photo-number blue">01</div>
+                            </div>
+                            <div class="candidate-name">ALFANU RIZKY</div>
+                            <div class="candidate-class">Kelas X TKJ 2</div>
+                        </div>
+
+                        <div class="candidate-info">
+                            <div class="info-box blue-light">
+                                <div class="info-title blue-dark">🎯 VISI</div>
+                                <div class="info-content">
+                                    Menjadi organisasi siswa yang berintegritas, berprestasi, dan berdedikasi dalam meningkatkan kualitas sekolah dan memberdayakan potensi siswa.
+                                </div>
+                            </div>
+                            
+                            <div class="info-box blue-light">
+                                <div class="info-title blue-dark">🚀 MISI</div>
+                                <div class="info-content">
+                                    <div>1. Meningkatkan kualitas pendidikan</div>
+                                    <div>2. Memberdayakan potensi siswa</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Candidate 2 -->
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <div class="candidate-photo">
+                                <img src="https://imagizer.imageshack.com/img922/7242/SOSNw9.jpg" alt="NAIL ZAKKIYA" class="photo-img">
+                                <div class="photo-number purple">02</div>
+                            </div>
+                            <div class="candidate-name">NAIL ZAKKIYA</div>
+                            <div class="candidate-class">Kelas X TSM</div>
+                        </div>
+
+                        <div class="candidate-info">
+                            <div class="info-box purple-light">
+                                <div class="info-title purple-dark">🎯 VISI</div>
+                                <div class="info-content">
+                                    Menjadikan OSIS sebagai wadah pengembangan potensi siswa yang aktif, kreatif, inovatif, dan berakhlak mulia.
+                                </div>
+                            </div>
+                            
+                            <div class="info-box purple-light">
+                                <div class="info-title purple-dark">🚀 MISI</div>
+                                <div class="info-content">
+                                    <div>1. Meningkatkan keimanan dan ketakwaan terhadap Tuhan Yang Maha Esa melalui kegiatan keagamaan</div>
+                                    <div>2. Mengembangkan potensi akademik dan non-akademik siswa melalui berbagai kegiatan dan program kerja</div>
+                                    <div>3. Menciptakan lingkungan sekolah yang kondusif, aman, nyaman, dan inspiratif bagi siswa</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Candidate 3 -->
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <div class="candidate-photo">
+                                <img src="https://imagizer.imageshack.com/img922/4465/zdE9W4.jpg" alt="M. SAIFUL RIZAL" class="photo-img">
+                                <div class="photo-number orange">03</div>
+                            </div>
+                            <div class="candidate-name">M. SAIFUL RIZAL</div>
+                            <div class="candidate-class">Kelas XI TKJ 1</div>
+                        </div>
+
+                        <div class="candidate-info">
+                            <div class="info-box orange-light">
+                                <div class="info-title orange-dark">🎯 VISI</div>
+                                <div class="info-content">
+                                    Menjalankan perintah di sekolah.
+                                </div>
+                            </div>
+                            
+                            <div class="info-box orange-light">
+                                <div class="info-title orange-dark">🚀 MISI</div>
+                                <div class="info-content">
+                                    <div>1. Mengembangkan kedisiplinan</div>
+                                    <div>2. Mentaati aturan sekolah</div>
+                                    <div>3. Mengharumkan nama baik sekolah</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Candidate 4 -->
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <div class="candidate-photo">
+                                <img src="https://imagizer.imageshack.com/img924/9239/TNPaa8.jpg" alt="SABILA ZARKASYI" class="photo-img">
+                                <div class="photo-number green">04</div>
+                            </div>
+                            <div class="candidate-name">SABILA ZARKASYI</div>
+                            <div class="candidate-class">Kelas XI TKJ 1</div>
+                        </div>
+
+                        <div class="candidate-info">
+                            <div class="info-box green-light">
+                                <div class="info-title green-dark">🎯 VISI</div>
+                                <div class="info-content">
+                                    Mewujudkan OSIS yang berprestasi, berakhlak mulia, disiplin, dan berwawasan global.
+                                </div>
+                            </div>
+                            
+                            <div class="info-box green-light">
+                                <div class="info-title green-dark">🚀 MISI</div>
+                                <div class="info-content">
+                                    <div>1. Meningkatkan keimanan dan ketakwaan kepada Tuhan Yang Maha Esa</div>
+                                    <div>2. Menciptakan lingkungan sekolah yang bersih, aman, dan nyaman</div>
+                                    <div>3. Mengoptimalkan peran OSIS sebagai jembatan komunikasi antara siswa dan pihak sekolah</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Voting Section -->
+            <section id="voting" class="section">
+                <h2 class="section-title">🗳️ Berikan Suara Anda</h2>
+                
+                <div class="voting-form">
+                    <div class="form-group">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" id="voterName" class="form-input" placeholder="Masukkan nama lengkap Anda">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Kelas</label>
+                        <input type="text" id="voterClass" class="form-input" placeholder="Contoh: X TKJ 1, XI TSM, XII RPL 2">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Pilih Kandidat</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="candidate" value="ALFANU RIZKY">
+                                <div class="radio-candidate-info">
+                                    <div class="radio-avatar blue">
+                                        <img src="https://imagizer.imageshack.com/img923/9986/13cZX2.jpg" alt="ALFANU RIZKY" class="radio-photo">
+                                    </div>
+                                    <div class="radio-details">
+                                        <h4>ALFANU RIZKY</h4>
+                                        <p>Kelas X TKJ 2</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="radio-option">
+                                <input type="radio" name="candidate" value="NAIL ZAKKIYA">
+                                <div class="radio-candidate-info">
+                                    <div class="radio-avatar purple">
+                                        <img src="https://imagizer.imageshack.com/img922/7242/SOSNw9.jpg" alt="NAIL ZAKKIYA" class="radio-photo">
+                                    </div>
+                                    <div class="radio-details">
+                                        <h4>NAIL ZAKKIYA</h4>
+                                        <p>Kelas X TSM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="radio-option">
+                                <input type="radio" name="candidate" value="M. SAIFUL RIZAL">
+                                <div class="radio-candidate-info">
+                                    <div class="radio-avatar orange">
+                                        <img src="https://imagizer.imageshack.com/img922/4465/zdE9W4.jpg" alt="M. SAIFUL RIZAL" class="radio-photo">
+                                    </div>
+                                    <div class="radio-details">
+                                        <h4>M. SAIFUL RIZAL</h4>
+                                        <p>Kelas XI TKJ 1</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="radio-option">
+                                <input type="radio" name="candidate" value="SABILA ZARKASYI">
+                                <div class="radio-candidate-info">
+                                    <div class="radio-avatar green">
+                                        <img src="https://imagizer.imageshack.com/img924/9239/TNPaa8.jpg" alt="SABILA ZARKASYI" class="radio-photo">
+                                    </div>
+                                    <div class="radio-details">
+                                        <h4>SABILA ZARKASYI</h4>
+                                        <p>Kelas XI TKJ 1</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="submitVote()" class="submit-btn">
+                        🗳️ Kirim Suara
+                    </button>
+                </div>
+            </section>
+
+            <!-- Admin Login Section -->
+            <section id="admin-login" class="section">
+                <h2 class="section-title">🔐 Login Admin</h2>
+                
+                <div class="voting-form">
+                    <div class="form-group">
+                        <label class="form-label">Username Admin</label>
+                        <input type="text" id="adminUsername" class="form-input" placeholder="Masukkan username admin">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password Admin</label>
+                        <input type="password" id="adminPassword" class="form-input" placeholder="Masukkan password admin">
+                    </div>
+
+                    <button onclick="adminLogin()" class="submit-btn">
+                        🔐 Login
+                    </button>
+                    
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button onclick="manualSync()" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-right: 10px;">
+                            🔄 Sinkronisasi Manual
+                        </button>
+                        <button onclick="resetAllVotes()" style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                            🗑️ Reset Semua Suara
+                        </button>
+                        <p style="font-size: 12px; color: #666; margin-top: 10px;">
+                            Sinkronisasi: Ambil data terbaru | Reset: Hapus semua data voting
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results" class="section">
+                <h2 class="section-title">📊 Hasil Pemilihan</h2>
+                
+                <div class="results-container">
+                    <div class="total-votes">
+                        <h3>Total Suara Masuk</h3>
+                        <div class="total-number" id="totalVotes">0</div>
+                    </div>
+
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-avatar blue">01</div>
+                            <div class="result-name">ALFANU RIZKY</div>
+                            <div class="progress-bar blue-light">
+                                <div class="progress-fill blue" id="progress1" style="width: 0%"></div>
+                            </div>
+                            <div class="result-stats">
+                                <div class="vote-count blue-dark" id="votes1">0</div>
+                                <div>suara</div>
+                                <div class="vote-percentage" id="percent1">(0%)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-avatar purple">02</div>
+                            <div class="result-name">NAIL ZAKKIYA</div>
+                            <div class="progress-bar purple-light">
+                                <div class="progress-fill purple" id="progress2" style="width: 0%"></div>
+                            </div>
+                            <div class="result-stats">
+                                <div class="vote-count purple-dark" id="votes2">0</div>
+                                <div>suara</div>
+                                <div class="vote-percentage" id="percent2">(0%)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-avatar orange">03</div>
+                            <div class="result-name">M. SAIFUL RIZAL</div>
+                            <div class="progress-bar orange-light">
+                                <div class="progress-fill orange" id="progress3" style="width: 0%"></div>
+                            </div>
+                            <div class="result-stats">
+                                <div class="vote-count orange-dark" id="votes3">0</div>
+                                <div>suara</div>
+                                <div class="vote-percentage" id="percent3">(0%)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-avatar green">04</div>
+                            <div class="result-name">SABILA ZARKASYI</div>
+                            <div class="progress-bar green-light">
+                                <div class="progress-fill green" id="progress4" style="width: 0%"></div>
+                            </div>
+                            <div class="result-stats">
+                                <div class="vote-count green-dark" id="votes4">0</div>
+                                <div>suara</div>
+                                <div class="vote-percentage" id="percent4">(0%)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="winner-announcement" class="winner-announcement">
+                        <h3>🎉 Selamat!</h3>
+                        <p>Ketua OSIS Terpilih: <span id="winner-name"></span></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 SMK DARUL ULUM</p>
+            <p>Pemilihan Ketua OSIS - Suara Anda Menentukan Masa Depan</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize voting data with proper structure
+        let votingData = {
+            votes: {
+                'ALFANU RIZKY': 0,
+                'NAIL ZAKKIYA': 0,
+                'M. SAIFUL RIZAL': 0,
+                'SABILA ZARKASYI': 0
+            },
+            voters: [],
+            lastUpdate: new Date().toISOString()
+        };
+
+        // Storage keys
+        const MAIN_DATA_KEY = 'pilketos_2025_main_data';
+        const BACKUP_KEY = 'pilketos_2025_backup';
+
+        // Initialize system
+        function initializeVotingSystem() {
+            console.log('🚀 Initializing voting system...');
+            
+            // Load existing data
+            loadVotingData();
+            
+            // Update display
+            updateResults();
+            
+            // Set up auto-save
+            setInterval(saveVotingData, 5000);
+            
+            console.log('✅ Voting system ready!');
+            console.log('Current votes:', votingData.votes);
+        }
+
+        // Load voting data from storage
+        function loadVotingData() {
+            try {
+                // Try main storage first
+                const mainData = localStorage.getItem(MAIN_DATA_KEY);
+                if (mainData) {
+                    const parsed = JSON.parse(mainData);
+                    if (parsed && parsed.votes) {
+                        votingData = parsed;
+                        console.log('✅ Data loaded from main storage');
+                        return;
+                    }
+                }
+                
+                // Try backup storage
+                const backupData = localStorage.getItem(BACKUP_KEY);
+                if (backupData) {
+                    const parsed = JSON.parse(backupData);
+                    if (parsed && parsed.votes) {
+                        votingData = parsed;
+                        console.log('✅ Data loaded from backup storage');
+                        return;
+                    }
+                }
+                
+                console.log('ℹ️ No existing data found, starting fresh');
+            } catch (error) {
+                console.error('❌ Error loading data:', error);
+            }
+        }
+
+        // Save voting data to storage
+        function saveVotingData() {
+            try {
+                votingData.lastUpdate = new Date().toISOString();
+                const dataString = JSON.stringify(votingData);
+                
+                // Save to main storage
+                localStorage.setItem(MAIN_DATA_KEY, dataString);
+                
+                // Save to backup storage
+                localStorage.setItem(BACKUP_KEY, dataString);
+                
+                console.log('💾 Data saved successfully');
+                return true;
+            } catch (error) {
+                console.error('❌ Error saving data:', error);
+                return false;
+            }
+        }
+
+        // Manual sync function
+        function manualSync() {
+            console.log('🔄 Manual sync triggered');
+            loadVotingData();
+            updateResults();
+            alert('✅ Sinkronisasi berhasil!\n\nData terbaru telah dimuat.');
+        }
+
+        // Reset all votes function
+        function resetAllVotes() {
+            if (confirm('⚠️ PERINGATAN!\n\nApakah Anda yakin ingin menghapus SEMUA data voting?\n\nTindakan ini tidak dapat dibatalkan!')) {
+                if (confirm('🔴 KONFIRMASI TERAKHIR:\n\nSemua suara akan dihapus permanen!\n\nKlik OK untuk melanjutkan atau Cancel untuk membatalkan.')) {
+                    // Reset all data
+                    votingData = {
+                        votes: {
+                            'ALFANU RIZKY': 0,
+                            'NAIL ZAKKIYA': 0,
+                            'M. SAIFUL RIZAL': 0,
+                            'SABILA ZARKASYI': 0
+                        },
+                        voters: [],
+                        lastUpdate: new Date().toISOString()
+                    };
+                    
+                    // Clear storage
+                    localStorage.removeItem(MAIN_DATA_KEY);
+                    localStorage.removeItem(BACKUP_KEY);
+                    
+                    // Save fresh data
+                    saveVotingData();
+                    
+                    // Update display
+                    updateResults();
+                    
+                    alert('✅ RESET BERHASIL!\n\nSemua data voting telah dihapus.\nSistem siap untuk voting baru.');
+                    
+                    console.log('🗑️ All voting data reset');
+                }
+            }
+        }
+
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+
+            if (sectionName === 'results') {
+                updateResults();
+            }
+        }
+
+        function showAdminLogin() {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show admin login section
+            document.getElementById('admin-login').classList.add('active');
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+        }
+
+        function adminLogin() {
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value.trim();
+
+            // Admin credentials - GANTI PASSWORD INI SEBELUM PUBLISH!
+            if (username === 'admin' && password === 'pilketos2025') {
+                alert('Login berhasil! Selamat datang Admin.');
+                
+                // Clear form
+                document.getElementById('adminUsername').value = '';
+                document.getElementById('adminPassword').value = '';
+                
+                // Show results
+                showSection('results');
+                updateResults();
+            } else {
+                alert('Username atau password salah!');
+            }
+        }
+
+        function submitVote() {
+            console.log('🗳️ Vote submission started');
+            
+            const voterName = document.getElementById('voterName').value.trim();
+            const voterClass = document.getElementById('voterClass').value.trim();
+            const selectedCandidate = document.querySelector('input[name="candidate"]:checked');
+
+            // Validation
+            if (!voterName) {
+                alert('❌ Mohon masukkan nama lengkap Anda!');
+                return;
+            }
+
+            if (!voterClass) {
+                alert('❌ Mohon masukkan kelas Anda!');
+                return;
+            }
+
+            if (!selectedCandidate) {
+                alert('❌ Mohon pilih salah satu kandidat!');
+                return;
+            }
+
+            // Create unique voter ID
+            const voterKey = (voterName + '-' + voterClass).toLowerCase().replace(/\s+/g, '');
+            
+            // Check if already voted
+            if (votingData.voters.includes(voterKey)) {
+                alert('⚠️ Anda sudah memberikan suara sebelumnya!\n\nSetiap siswa hanya boleh voting sekali.');
+                return;
+            }
+
+            // Process the vote
+            try {
+                console.log('Processing vote for:', selectedCandidate.value);
+                
+                // Add vote to candidate
+                votingData.votes[selectedCandidate.value]++;
+                
+                // Add voter to list
+                votingData.voters.push(voterKey);
+                
+                // Update timestamp
+                votingData.lastUpdate = new Date().toISOString();
+                
+                // Save data immediately
+                const saveSuccess = saveVotingData();
+                
+                if (saveSuccess) {
+                    // Update display
+                    updateResults();
+                    
+                    // Calculate total votes
+                    const totalVotes = Object.values(votingData.votes).reduce((a, b) => a + b, 0);
+                    
+                    // Success message
+                    alert(`✅ VOTING BERHASIL!\n\n` +
+                          `Terima kasih ${voterName}!\n` +
+                          `Suara Anda untuk ${selectedCandidate.value} telah tercatat.\n\n` +
+                          `📊 Total suara saat ini: ${totalVotes}`);
+                    
+                    console.log('✅ Vote recorded successfully');
+                    console.log('Updated votes:', votingData.votes);
+                    console.log('Total voters:', votingData.voters.length);
+                    
+                    // Clear form
+                    document.getElementById('voterName').value = '';
+                    document.getElementById('voterClass').value = '';
+                    selectedCandidate.checked = false;
+
+                    // Go back to candidates page
+                    showSection('candidates');
+                    
+                    // Update nav
+                    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                    document.querySelector('.nav-btn:nth-child(1)').classList.add('active');
+                    
+                } else {
+                    alert('❌ Terjadi kesalahan saat menyimpan suara!\nSilakan coba lagi.');
+                }
+                
+            } catch (error) {
+                console.error('❌ Error processing vote:', error);
+                alert('❌ Terjadi kesalahan sistem!\nSilakan coba lagi atau hubungi admin.');
+            }
+        }
+
+        function updateResults() {
+            console.log('📊 Updating results display');
+            
+            // Calculate total votes
+            const total = Object.values(votingData.votes).reduce((sum, count) => sum + count, 0);
+            document.getElementById('totalVotes').textContent = total;
+
+            const candidates = ['ALFANU RIZKY', 'NAIL ZAKKIYA', 'M. SAIFUL RIZAL', 'SABILA ZARKASYI'];
+            
+            candidates.forEach((candidate, index) => {
+                const candidateVotes = votingData.votes[candidate] || 0;
+                const percent = total > 0 ? Math.round((candidateVotes / total) * 100) : 0;
+                const num = index + 1;
+                
+                // Update vote count
+                document.getElementById('votes' + num).textContent = candidateVotes;
+                
+                // Update percentage
+                document.getElementById('percent' + num).textContent = '(' + percent + '%)';
+                
+                // Update progress bar
+                document.getElementById('progress' + num).style.width = percent + '%';
+                
+                console.log(`${candidate}: ${candidateVotes} votes (${percent}%)`);
+            });
+
+            // Show winner if there are votes
+            if (total > 0) {
+                const winner = Object.keys(votingData.votes).reduce((a, b) => 
+                    votingData.votes[a] > votingData.votes[b] ? a : b
+                );
+                document.getElementById('winner-name').textContent = winner;
+                document.getElementById('winner-announcement').style.display = 'block';
+                console.log('🏆 Current leader:', winner);
+            } else {
+                document.getElementById('winner-announcement').style.display = 'none';
+            }
+            
+            console.log('✅ Results updated - Total votes:', total);
+        }
+
+        // Initialize the voting system when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🌐 Page loaded, initializing system...');
+            initializeVotingSystem();
+        });
+
+        // Also initialize immediately (fallback)
+        initializeVotingSystem();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f0cdc5e1363f81',t:'MTc1NTE3ODE5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
